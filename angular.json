@@ -98,6 +98,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "tpwa:build:production",
+            "firebaseProject": "tpwa-bca88",
+            "firebaseHostingSite": "tpwa-bca88"
+          }
         }
       }
     }

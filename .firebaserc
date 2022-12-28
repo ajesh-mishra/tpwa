@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tpwa-bca88": {
+      "hosting": {
+        "tpwa": [
+          "tpwa-bca88"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tpwa-bca88"
+  }
+}
