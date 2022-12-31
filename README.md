@@ -1,6 +1,18 @@
-# Tpwa
+# TPWA
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+This is a Test PWA Contact Application generated with [Angular CLI](https://github.com/angular/angular-cli).
+
+## Application Features
+
+- Contact Application.
+- Progressive Web Application with Angular `v15.0.4`.
+- CRUD functionality to add, update and delete contacts.
+- New Contact Page implements Angular Reactive Form which implements features like:
+    - Nested Form
+    - Form Array
+    - Form Validation
+    - Async Form Validation
+- FireBase is used to store the data in backend.
 
 ## Development server
 
