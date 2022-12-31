@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Contact } from '../contact.interface';
 import { ContactService } from '../contact.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-show-contact',
@@ -15,11 +16,14 @@ export class ShowContactComponent implements OnInit {
   id: string = '';
   contact: any;
 
-  route = inject(ActivatedRoute);
+  _dialog = inject(MatDialog);
+  _router = inject(Router);
+  _route = inject(ActivatedRoute);
+  _snackBar = inject(MatSnackBar);
   contactService = inject(ContactService);
 
   ngOnInit() {
-    this.route.paramMap.subscribe(param => {
+    this._route.paramMap.subscribe(param => {
       this.id = param.get('id') || '';
     })
     const contact$ = this.contactService.getContact(this.id);
@@ -28,8 +32,28 @@ export class ShowContactComponent implements OnInit {
     })
   }
 
+  openDialog(): void {
+    const dialogRef = this._dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.contactService.deleteContact(this.id).then(
+          value => {
+            this._router.navigate(['']);
+            this._snackBar.open('Contact Deleted!', '', {
+              duration: 3000
+            });
+          },
+          reason => {
+            this._snackBar.open('Encountered Issue', 'Try Again');
+          }
+        );
+      }
+    });
+  }
+
   deleteContact() {
-    this.contactService.deleteContact(this.id)
+    this.openDialog();
   }
 
 }

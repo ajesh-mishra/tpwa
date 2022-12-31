@@ -1,7 +1,7 @@
 <app-page-header text="New Contact" [showBackButton]="true"></app-page-header>
 
 <form [formGroup]="contactForm" class="pt-32 px-4 md:mx-auto md:max-w-3xl">
-  
+
   <p class="text-slate-600">Name</p>
   <p class="name-field-container">
     <mat-form-field>
@@ -33,8 +33,10 @@
           <input id="phone-{{ i }}" formControlName="phone" type="tel" matInput placeholder="555-555-1234">
           <mat-icon matSuffix color="primary">phone</mat-icon>
           <mat-hint>Phone Number like 7620280899</mat-hint>
-          <mat-error *ngIf="phoneGroup.get('phone')?.hasError('required') && phoneGroup.get('phone')?.touched">Phone is a mandatory field</mat-error>
-          <mat-error *ngIf="phoneGroup.get('phone')?.hasError('pattern')  && phoneGroup.get('phone')?.touched">Phone number must contain 10 digits</mat-error>
+          <mat-error *ngIf="phoneGroup.get('phone')?.hasError('required') && phoneGroup.get('phone')?.touched">Phone is
+            a mandatory field</mat-error>
+          <mat-error *ngIf="phoneGroup.get('phone')?.hasError('pattern')  && phoneGroup.get('phone')?.touched">Phone
+            number must contain 10 digits</mat-error>
         </mat-form-field>
         <button (click)="deletePhone(i)">
           <mat-icon color="warn" class="mb-5">delete</mat-icon>
@@ -45,7 +47,7 @@
       <br>
       <br>
     </div>
-    
+
     <div formArrayName="emails">
       <div>
         <p class="text-slate-600">Email</p>
@@ -56,10 +58,10 @@
             <input id="email-{{ i }}" formControlName="email" type="email" matInput placeholder="Ex. pat@example.com">
             <mat-icon matSuffix color="primary">email</mat-icon>
             <mat-hint>Email ID like email@invalid.com</mat-hint>
-            <mat-error *ngIf="emailGroup.get('email')?.hasError('required') && emailGroup.get('email')?.touched">Email is a mandatory
-              field</mat-error>
-            <mat-error *ngIf="emailGroup.get('email')?.hasError('email') && emailGroup.get('email')?.touched">Email doesn't look
-              right</mat-error>
+            <mat-error *ngIf="emailGroup.get('email')?.hasError('required') && emailGroup.get('email')?.touched">Email
+              is a mandatory field</mat-error>
+            <mat-error *ngIf="emailGroup.get('email')?.hasError('email') && emailGroup.get('email')?.touched">Email
+              doesn't look right</mat-error>
           </mat-form-field>
           <button (click)="deleteEmail(i)">
             <mat-icon color="warn" class="mb-5">delete</mat-icon>
@@ -129,7 +131,8 @@
   </p> -->
 
   <div class="action-buttons-container">
-    <button type="submit" (click)="onSubmit()" [disabled]="!contactForm.valid" mat-raised-button color="primary" class="action-button">Save
+    <button type="submit" (click)="onSubmit()" [disabled]="!contactForm.valid" mat-raised-button color="primary"
+      class="action-button">Save
       Contact</button>
     <a mat-button color="warn" [routerLink]="''" class="action-button">Cancel</a>
   </div>

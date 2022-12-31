@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const materialComponents = [
   MatInputModule,
@@ -14,6 +16,8 @@ const materialComponents = [
   MatSelectModule,
   MatListModule,
   MatRippleModule,
+  MatSnackBarModule,
+  MatDialogModule,
 
 ]
 

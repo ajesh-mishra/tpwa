@@ -1,5 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+
 import { ContactService } from '../contact.service';
 
 interface AddressTypes {
@@ -21,6 +24,8 @@ export class NewContactComponent {
   ];
 
   _fb = inject(FormBuilder);
+  _snackBar = inject(MatSnackBar);
+  _router = inject(Router);
   contactService = inject(ContactService);
   contactForm: FormGroup;
 
@@ -103,8 +108,15 @@ export class NewContactComponent {
 
     this.contactService.addContact(contactFormValue)
       .then(
-        (value: any) => console.info(value),
-        (reason: any) => console.error(reason)
+        value => { 
+          this._router.navigate(['']);
+          this._snackBar.open('Contact Save Successful!', '', {
+            duration: 3000
+          });
+        },
+        reason => {
+          this._snackBar.open('Encountered Issue', 'Try Again'); 
+        }
       )
   }
 }

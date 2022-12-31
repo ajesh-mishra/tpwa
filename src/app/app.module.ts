@@ -15,6 +15,7 @@ import { NewContactComponent } from './new-contact/new-contact.component';
 import { ListContactComponent } from './list-contact/list-contact.component';
 import { ShowContactComponent } from './show-contact/show-contact.component';
 import { ShortNamePipe } from './short-name.pipe';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ShortNamePipe } from './short-name.pipe';
     NewContactComponent,
     ListContactComponent,
     ShowContactComponent,
-    ShortNamePipe
+    ShortNamePipe,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
