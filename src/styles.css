@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.action-buttons-container {
+    @apply py-6 flex flex-col gap-2 md:flex-row-reverse md:gap-4;
+}
+
+.action-button {
+    @apply py-5;
+}

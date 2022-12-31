@@ -1,0 +1,32 @@
+<app-page-header text="{{ contact?.firstName | titlecase }} {{ contact?.lastName | titlecase }}"
+  [showBackButton]="true">
+</app-page-header>
+
+
+<div class="pt-32 px-4 md:mx-auto md:max-w-3xl">
+  <p>
+    {{ contact?.firstName | titlecase }}
+    {{ contact?.middleName | titlecase }}
+    {{ contact?.lastName | titlecase }}
+  </p>
+  <br>
+
+  <p>Phone</p>
+  <p *ngFor="let phone of contact?.phones" class="px-4 flex gap-2 place-items-center">
+    <mat-icon color="primary">phone</mat-icon>
+    {{ phone }}</p>
+  <br>
+
+  <p>Email</p>
+  <p *ngFor="let email of contact?.emails" class="px-4 flex gap-2 place-items-center">
+    <mat-icon color="primary">email</mat-icon>
+    {{ email }}</p>
+  <br>
+
+  <div class="action-buttons-container">
+    <button mat-raised-button color="primary" class="action-button">Edit Contact</button>
+    <!-- [routerLink]="''"  -->
+    <a mat-button color="warn" (click)="deleteContact()"
+    class="action-button">Delete</a>
+  </div>
+</div>

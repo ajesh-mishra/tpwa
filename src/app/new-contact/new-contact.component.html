@@ -1,0 +1,136 @@
+<app-page-header text="New Contact" [showBackButton]="true"></app-page-header>
+
+<form [formGroup]="contactForm" class="pt-32 px-4 md:mx-auto md:max-w-3xl">
+  
+  <p class="text-slate-600">Name</p>
+  <p class="name-field-container">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="Ex. Ajesh" formControlName="firstName">
+      <mat-error *ngIf="firstName?.invalid && firstName?.errors?.['required']">First Name is a mandatory
+        field</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Middle Name</mat-label>
+      <input matInput placeholder="Ex. Kumar" formControlName="middleName">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Mishra" formControlName="lastName">
+      <mat-error *ngIf="lastName?.invalid && lastName?.errors?.['required']">Last Name is a mandatory
+        field</mat-error>
+    </mat-form-field>
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 md:gap-4">
+
+    <div formArrayName="phones">
+      <p class="text-slate-600">Phone</p>
+      <div class="mb-3 flex gap-1 place-items-center" *ngFor="let phoneGroup of phoneArray['controls']; let i=index"
+        [formGroupName]="i">
+        <mat-form-field>
+          <mat-label>Telephone</mat-label>
+          <input id="phone-{{ i }}" formControlName="phone" type="tel" matInput placeholder="555-555-1234">
+          <mat-icon matSuffix color="primary">phone</mat-icon>
+          <mat-hint>Phone Number like 7620280899</mat-hint>
+          <mat-error *ngIf="phoneGroup.get('phone')?.hasError('required') && phoneGroup.get('phone')?.touched">Phone is a mandatory field</mat-error>
+          <mat-error *ngIf="phoneGroup.get('phone')?.hasError('pattern')  && phoneGroup.get('phone')?.touched">Phone number must contain 10 digits</mat-error>
+        </mat-form-field>
+        <button (click)="deletePhone(i)">
+          <mat-icon color="warn" class="mb-5">delete</mat-icon>
+        </button>
+      </div>
+      <button (click)="addPhone()" mat-stroked-button color="primary">
+        <mat-icon>add</mat-icon>Alternate Phone</button>
+      <br>
+      <br>
+    </div>
+    
+    <div formArrayName="emails">
+      <div>
+        <p class="text-slate-600">Email</p>
+        <div class="mb-3 flex gap-1 place-items-center" *ngFor="let emailGroup of emailArray['controls']; let i=index"
+          [formGroupName]="i">
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input id="email-{{ i }}" formControlName="email" type="email" matInput placeholder="Ex. pat@example.com">
+            <mat-icon matSuffix color="primary">email</mat-icon>
+            <mat-hint>Email ID like email@invalid.com</mat-hint>
+            <mat-error *ngIf="emailGroup.get('email')?.hasError('required') && emailGroup.get('email')?.touched">Email is a mandatory
+              field</mat-error>
+            <mat-error *ngIf="emailGroup.get('email')?.hasError('email') && emailGroup.get('email')?.touched">Email doesn't look
+              right</mat-error>
+          </mat-form-field>
+          <button (click)="deleteEmail(i)">
+            <mat-icon color="warn" class="mb-5">delete</mat-icon>
+          </button>
+        </div>
+        <button (click)="addEmail()" mat-stroked-button color="primary">
+          <mat-icon>add</mat-icon>Alternate Email</button>
+        <br>
+        <br>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <p class="text-slate-600">Address</p>
+  <div class="address-field-container">
+
+    <mat-form-field class="md:row-span-3">
+      <mat-label>Address</mat-label>
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="7"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Address Type</mat-label>
+      <mat-select>
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let type of addressTypes" [value]="type.value">
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>State</mat-label>
+      <input matInput placeholder="Ex. California">
+      <mat-icon matSuffix>location_on</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Postal Code</mat-label>
+      <input matInput #postalCode maxlength="5" type="number" placeholder="Ex. 94105">
+      <mat-icon matSuffix>dialpad</mat-icon>
+      <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+    </mat-form-field>
+
+  </div>
+
+  <p>
+    <button mat-stroked-button color="primary"><mat-icon>add</mat-icon>Alternate Address</button>
+    <br>
+    <br>
+  </p>
+
+  <p class="text-slate-600">Social</p>
+  <p class="social-field-container">
+    <mat-form-field>
+      <mat-label>LinkedIn</mat-label>
+      <input matInput type="url" placeholder="Ex. California">
+      <mat-icon matSuffix>link</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>GitHub</mat-label>
+      <input matInput type="url" placeholder="Ex. California">
+      <mat-icon matSuffix>link</mat-icon>
+    </mat-form-field>
+  </p> -->
+
+  <div class="action-buttons-container">
+    <button type="submit" (click)="onSubmit()" [disabled]="!contactForm.valid" mat-raised-button color="primary" class="action-button">Save
+      Contact</button>
+    <a mat-button color="warn" [routerLink]="''" class="action-button">Cancel</a>
+  </div>
+</form>
