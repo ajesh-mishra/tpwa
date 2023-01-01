@@ -127,8 +127,6 @@ export class NewContactComponent implements OnInit {
   }
 
   onSubmit(id: string | null) {
-    console.log("contact form was submitted!");
-
     let contactFormValue = this.contactForm.value;
 
     let phones: number[] = [];
@@ -138,8 +136,6 @@ export class NewContactComponent implements OnInit {
     let emails: string[] = [];
     contactFormValue.emails.map((ele: { email: any; }) => emails.push(ele.email));
     contactFormValue.emails = emails;
-
-    console.log(contactFormValue);
 
     if (id) {
       this.contactService.updateContact(contactFormValue, id as string)

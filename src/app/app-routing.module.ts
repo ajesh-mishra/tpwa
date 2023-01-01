@@ -1,25 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NewContactComponent } from './new-contact/new-contact.component';
 import { ListContactComponent } from './list-contact/list-contact.component';
+import { NewContactComponent } from './new-contact/new-contact.component';
 import { ShowContactComponent } from './show-contact/show-contact.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListContactComponent
+    component: ListContactComponent,
+    data: { animation: 'ListContactPage' }
   },
   {
     path: 'new-contact',
-    component: NewContactComponent
+    component: NewContactComponent,
+    data: { animation: 'NewContactPage' }
   },
   {
     path: 'show-contact/:id',
-    component: ShowContactComponent
+    component: ShowContactComponent,
+    data: { animation: 'ShowContactPage' }
   },
   {
     path: 'edit-contact/:id',
-    component: NewContactComponent
+    component: NewContactComponent,
+    data: { animation: 'EditContactPage' }
   },
 ];
 

@@ -5,16 +5,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ContactService } from '../contact.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { Contact } from '../contact.interface';
 
 @Component({
   selector: 'app-show-contact',
   templateUrl: './show-contact.component.html',
-  styleUrls: ['./show-contact.component.css']
 })
 export class ShowContactComponent implements OnInit {
 
   id: string = '';
-  contact: any;
+  contact: Contact | undefined;
 
   _dialog = inject(MatDialog);
   _router = inject(Router);

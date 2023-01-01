@@ -1,8 +1,8 @@
 <app-page-header text="Contacts"></app-page-header>
 
-<div class="h-full w-full">
+<div class="h-screen w-screen relative">
 
-  <div class="pt-28 md:mx-auto md:max-w-3xl h-full relative">
+  <div class="pt-28 md:mx-auto md:max-w-3xl">
     <div class="py-3 px-4 flex gap-3" matRipple *ngFor="let contact of contacts$ | async"
       [routerLink]="['show-contact', contact.id]">
       <div class="mt-0 bg-slate-100 w-12 h-12 rounded-full flex justify-center place-items-center">{{ contact.firstName | shortName }}</div>
@@ -13,12 +13,11 @@
         <!-- <div class="text-sm text-slate-500">{{ contact | json }}</div> -->
       </div>
     </div>
-
-    <div class="absolute bottom-4 right-4">
-      <a mat-fab color="primary" [routerLink]="'new-contact'">
-        <mat-icon>add</mat-icon>
-      </a>
-    </div>
   </div>
-
+  
+  <!-- <div class="fixed bottom-4 right-4">
+    <a mat-fab color="primary" [routerLink]="'new-contact'">
+      <mat-icon>add</mat-icon>
+    </a>
+  </div> -->
 </div>
