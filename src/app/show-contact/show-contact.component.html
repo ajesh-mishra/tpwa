@@ -24,7 +24,8 @@
   <br>
 
   <div class="action-buttons-container">
-    <button mat-raised-button color="primary" class="action-button">Edit Contact</button>
+    <a mat-raised-button color="primary" [routerLink]="['/', 'edit-contact', id]"
+      class="action-button">Edit Contact</a>
     <a mat-button color="warn" (click)="deleteContact()"
     class="action-button">Delete</a>
   </div>

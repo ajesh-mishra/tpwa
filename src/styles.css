@@ -19,5 +19,5 @@ body {
 }
 
 .action-button {
-    @apply py-5;
+    @apply py-10;
 }

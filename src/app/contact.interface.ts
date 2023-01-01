@@ -3,6 +3,6 @@ export interface Contact {
     firstName: String;
     middleName?: String;
     lastName: String;
-    phone: number[];
-    email?: string[];
+    phones: number[];
+    emails: string[];
 };

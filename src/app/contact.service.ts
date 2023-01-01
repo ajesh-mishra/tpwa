@@ -26,8 +26,8 @@ export class ContactService {
     return addDoc(contactsRef, contact);
   }
 
-  updateContact(contact: Contact) {
-    const contactsRef = doc(this.firestore, `contact/${contact.id}`);
+  updateContact(contact: Contact, id: string) {
+    const contactsRef = doc(this.firestore, `contact/${id}`);
     const newContact = {
       ...contact
     }

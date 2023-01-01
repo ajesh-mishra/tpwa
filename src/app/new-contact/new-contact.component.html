@@ -1,4 +1,4 @@
-<app-page-header text="New Contact" [showBackButton]="true"></app-page-header>
+<app-page-header text="{{id ? 'Edit Contact' : 'New Contact'}}" [showBackButton]="true"></app-page-header>
 
 <form [formGroup]="contactForm" class="pt-32 px-4 md:mx-auto md:max-w-3xl">
 
@@ -131,9 +131,10 @@
   </p> -->
 
   <div class="action-buttons-container">
-    <button type="submit" (click)="onSubmit()" [disabled]="!contactForm.valid" mat-raised-button color="primary"
-      class="action-button">Save
-      Contact</button>
-    <a mat-button color="warn" [routerLink]="''" class="action-button">Cancel</a>
+    <!-- <button type="submit" *ngIf="!id" (click)="onSubmit()" [disabled]="!contactForm.valid" mat-raised-button color="primary"
+      class="action-button">Save Contact</button> -->
+    <button type="submit" (click)="onSubmit(id)" [disabled]="!contactForm.valid" mat-raised-button color="primary"
+      class="action-button">{{ id ? 'Update Contact' : 'Save Contact' }}</button>
+    <a mat-button color="warn" [routerLink]="id ? ['/', 'show-contact', id] : ''" class="action-button">Cancel</a>
   </div>
 </form>

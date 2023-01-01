@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ContactService } from '../contact.service';
 
@@ -15,7 +15,7 @@ interface AddressTypes {
   templateUrl: './new-contact.component.html',
   styleUrls: ['./new-contact.component.css']
 })
-export class NewContactComponent {
+export class NewContactComponent implements OnInit {
 
   addressTypes: AddressTypes[] = [
     { value: 'permanent', viewValue: 'Permanent' },
@@ -24,22 +24,57 @@ export class NewContactComponent {
   ];
 
   _fb = inject(FormBuilder);
-  _snackBar = inject(MatSnackBar);
   _router = inject(Router);
+  _route = inject(ActivatedRoute);
+  _snackBar = inject(MatSnackBar);
   contactService = inject(ContactService);
+
+  id: string | null = null;
   contactForm: FormGroup;
+
+  ngOnInit() {
+    this._route.paramMap.subscribe(param => {
+      this.id = param.get('id');
+    })
+    if (this.id) {
+      this.patchContactForm();
+    } else {
+      this.addPhone();
+      this.addEmail()
+    }
+  }
+
+  patchContactForm() {
+    this.contactService.getContact(this.id).subscribe(res => {
+      this.contactForm.patchValue({
+        firstName: res.firstName,
+        middleName: res.middleName,
+        lastName: res.lastName,
+      });
+
+      const phoneValues = res.phones.map(phone => {
+        this.addPhone();
+        return { phone }
+      })
+      this.phoneArray.patchValue(phoneValues);
+
+      const emailValues = res.emails.map(email => {
+        this.addEmail();
+        return { email }
+      })
+      this.emailArray.patchValue(emailValues);
+    })
+  }
 
   constructor() {
     this.contactForm = this._fb.group({
       firstName: ['', Validators.required],
       middleName: ['',],
       lastName: ['', Validators.required],
-      phones: this._fb.array([
-        this.addPhoneGroup()
-      ]),
-      emails: this._fb.array([
-        this.addEmailGroup()
-      ]),
+      phones: this._fb.array([]),
+      // this.addPhoneGroup()
+      emails: this._fb.array([]),
+      // this.addEmailGroup()
     });
   }
 
@@ -91,7 +126,7 @@ export class NewContactComponent {
     }
   }
 
-  onSubmit() {
+  onSubmit(id: string | null) {
     console.log("contact form was submitted!");
 
     let contactFormValue = this.contactForm.value;
@@ -106,17 +141,32 @@ export class NewContactComponent {
 
     console.log(contactFormValue);
 
-    this.contactService.addContact(contactFormValue)
-      .then(
-        value => { 
-          this._router.navigate(['']);
-          this._snackBar.open('Contact Save Successful!', '', {
-            duration: 3000
-          });
-        },
-        reason => {
-          this._snackBar.open('Encountered Issue', 'Try Again'); 
-        }
-      )
+    if (id) {
+      this.contactService.updateContact(contactFormValue, id as string)
+        .then(
+          value => {
+            this._router.navigate(['', 'show-contact', id]);
+            this._snackBar.open('Contact Update Successful!', '', {
+              duration: 3000
+            });
+          },
+          reason => {
+            this._snackBar.open('Encountered Issue', 'Try Again');
+          }
+        )
+    } else {
+      this.contactService.addContact(contactFormValue)
+        .then(
+          value => {
+            this._router.navigate(['']);
+            this._snackBar.open('Contact Save Successful!', '', {
+              duration: 3000
+            });
+          },
+          reason => {
+            this._snackBar.open('Encountered Issue', 'Try Again');
+          }
+        )
+    }
   }
 }
